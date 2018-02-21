@@ -16,6 +16,9 @@ while len(data) >= 50:
 #print(clf.get_params(deep=True))
 
 
-j = {"x":[3]}
+#j = {"x":[3]}
 
-print(clf.predict([j["x"]]))
+#print(clf.predict([j["x"]]))
+
+j = arg
+print(clf.predict(j))
