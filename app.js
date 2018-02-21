@@ -54,7 +54,7 @@ function onReceive(message) {
 }
 
 function onError(error) {
-    console.log(err);
+    console.log(error);
 }
 
 var consumer = Kafka().Consumer('dredd', onReceive, onError);
