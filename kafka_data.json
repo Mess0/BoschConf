@@ -1,1 +1,0 @@
-{"content-spec":"urn:spec://eclipse.org/unide/measurement-message#v2","device":{"deviceID":"dredd_balluff_master"},"measurements":[{"ts":"2018-02-21T14:42:23.076Z","series":{"$_time":[0],"Balluff Master: Distance on Port 0":[146.4]}}]}

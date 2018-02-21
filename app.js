@@ -3,7 +3,6 @@
 const host = '100.102.4.11:2181';
 
 var Promise = require('promise'),
-    fs = require('fs'),
     ch_ps = require('child_process'),
     kafka = require('kafka-node');
 
@@ -48,18 +47,10 @@ var Kafka = function () {
 };
 
 const balluffMaster = "dredd_balluff_master";
-//const kafkaDataPath = "kafka_data.json";
-
 
 function onReceive(message) {
     var msg = JSON.parse(message.value);
     if (msg.device.deviceID === balluffMaster) {
-        //console.log("Received data from " + balluffMaster + ":");
-        //console.log(msg);
-        //var stream = fs.createWriteStream(kafkaDataPath);
-        //stream.write(JSON.stringify(msg));
-        //stream.end();
-
         getRunPyPromise('./sample_code.py', JSON.stringify(msg)).then(function (fromPy) {
             console.log(fromPy.toString());
         }, function (err) {
