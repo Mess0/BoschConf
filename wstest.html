@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    var exampleSocket = new WebSocket("ws://localhost:8888");
+    exampleSocket.onmessage = function (event) {
+        console.log(event.data);
+    }
+</script>
+<body>
+
+</body>
+</html>
