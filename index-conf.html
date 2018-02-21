@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Video</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+                $("div.classvideo").toggle();
+            });
+        });
+    </script>
+<style>
+   .classvideo{
+      width: 640px;
+      height: 480px;
+        }
+</style>
+</head>
+<body>
+
+
+<button onclick="video()">Show Camera</button>
+<div class="classvideo"><video id="video"  autoplay></video></div>
+<script type="text/javascript">
+    function video(){
+        var video = document.getElementById('video');
+        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+                video.src = window.URL.createObjectURL(stream);
+                video.play();
+            });
+        }
+     }
+</script>
+</body>
+</html>
+
+
+
+
