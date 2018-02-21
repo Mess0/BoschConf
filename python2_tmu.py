@@ -8,8 +8,8 @@ from kafka import KafkaConsumer
 
 consumer = KafkaConsumer('dreddswitch', group_id = 'Clusters', bootstrap_servers=['100.102.4.11:9092'], auto_offset_reset='earliest')
 
-distance = 0
-switch = 0
+distance = [0.0]
+switch = [0]
 
 
 for msg in consumer:
@@ -18,13 +18,14 @@ for msg in consumer:
         try:
             val = meas["series"]["Balluff Master: Distance on Port 0"]
             distance = val
-            print(json.dumps(distance))
+            #print(json.dumps(distance))
         except:
             pass
 
         try:
             val = meas["series"]["Balluff Master: Switch state on Port 0"]
             switch = val
-            print(json.dumps(switch))
+            #print(json.dumps(switch))
         except:
             pass
+    print(json.dumps(distance), json.dumps(switch))
