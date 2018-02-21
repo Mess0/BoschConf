@@ -2,12 +2,14 @@
 
 const host = '100.102.4.11:2181';
 
-var Promise = require('promise');
+var Promise = require('promise'),
+    fs = require('fs'),
+    ch_ps = require('child_process'),
+    kafka = require('kafka-node');
 
 function getRunPyPromise(pyProgramPath) {
     return new Promise(function (success, failed) {
 
-        var ch_ps = require('child_process');
         var pyprog = ch_ps.spawn('python', [pyProgramPath]);
 
         pyprog.stdout.on('data', function (data) {
@@ -21,31 +23,39 @@ function getRunPyPromise(pyProgramPath) {
     });
 }
 
-var kafka = require('kafka-node'),
-    client = new kafka.Client(host),
-    Consumer = kafka.Consumer,
-    consumer = new Consumer(
-        client,
-        [
-            {topic: 'dredd', partition: 0}
-        ],
-        {
-            autoCommit: false
+var Kafka = function () {
+    return {
+        Consumer: function (topicName, clbkSucc, clbkErr) {
+            var client = new kafka.Client(host),
+                Consumer = kafka.Consumer,
+                offset = new kafka.Offset(client);
+            offset.fetch([{topic: topicName, partition: 0, time: -1}], function (err, data) {
+
+                var latestOffset = data[topicName]['0'][0];
+
+                console.log("Current offset of topic " + topicName + " is: " + latestOffset);
+
+                var consumer = new Consumer(client, [{
+                    topic: topicName,
+                    partition: 0,
+                    offset: latestOffset
+                }], {autoCommit: false, fromOffset: true});
+                consumer.on('message', clbkSucc);
+                consumer.on('error', clbkErr);
+            });
         }
-    );
+    }
+};
 
-consumer.on('message', function (message) {
 
-    getRunPyPromise('./python1.py').then(function (fromPy) {
-        console.log(fromPy.toString());
-    }, function (err) {
-        console.log(err);
-    });
-
+function onReceive(message) {
     console.log(message.value);
-});
 
-consumer.on('error', function (err) {
+}
+
+function onError(error) {
     console.log(err);
-});
+}
+
+var consumer = Kafka().Consumer('dredd', onReceive, onError);
 
