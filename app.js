@@ -11,7 +11,7 @@ var kafka = require('kafka-node'),
     consumer = new Consumer(
         client,
         [
-            {topic: 'DREDD', partition: 0}
+            {topic: 'AI_Factory', partition: 0}
         ],
         {
             autoCommit: false
