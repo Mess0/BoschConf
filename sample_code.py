@@ -1,6 +1,7 @@
 import json
+import sys
 from pprint import pprint
 
-data = json.load(open('test_Data.json'))
+data = json.loads(sys.argv[1])
 
-pprint(data["measurements"][0]["series"]["distance"])
+pprint(data["measurements"][0]["series"]["Balluff Master: Distance on Port 0"])
