@@ -1,13 +1,23 @@
 {
-  "content-spec" : "urn:spec://eclipse.org/unide/measurement-message#v2",
-  "device" : {
-    "deviceID" : "Balluff_Master"
+  "content-spec": "urn:spec://eclipse.org/unide/measurement-message#v2",
+  "device": {
+    "deviceID": "dredd_balluff_master"
   },
-  "measurements" : [ {
-    "ts" : "2018-02-21T12:27:39.194Z",
-    "series" : {
-      "$_time" : [ 0 ],
-      "Dredd Balluff master: Distance on Port 0" : [ 200.60000000000002 ]
+  "measurements": [
+    {
+      "ts": "2018-02-21T14:27:46.499Z",
+      "series": {
+        "$_time": [
+          0,
+          1169,
+          2002
+        ],
+        "Balluff Master: Distance on Port 0": [
+          248.9,
+          248.10000000000002,
+          248
+        ]
+      }
     }
-  } ]
+  ]
 }

@@ -7,10 +7,10 @@ var Promise = require('promise'),
     ch_ps = require('child_process'),
     kafka = require('kafka-node');
 
-function getRunPyPromise(pyProgramPath) {
+function getRunPyPromise(pyProgramPath, arg) {
     return new Promise(function (success, failed) {
 
-        var pyprog = ch_ps.spawn('python', [pyProgramPath]);
+        var pyprog = ch_ps.spawn('python', [pyProgramPath, arg]);
 
         pyprog.stdout.on('data', function (data) {
             success(data);
@@ -33,7 +33,7 @@ var Kafka = function () {
 
                 var latestOffset = data[topicName]['0'][0];
 
-                console.log("Current offset of topic " + topicName + " is: " + latestOffset);
+                //console.log("Current offset of topic " + topicName + " is: " + latestOffset);
 
                 var consumer = new Consumer(client, [{
                     topic: topicName,
@@ -47,14 +47,34 @@ var Kafka = function () {
     }
 };
 
+const balluffMaster = "dredd_balluff_master";
+//const kafkaDataPath = "kafka_data.json";
+
 
 function onReceive(message) {
-    console.log(message.value);
+    var msg = JSON.parse(message.value);
+    if (msg.device.deviceID === balluffMaster) {
+        //console.log("Received data from " + balluffMaster + ":");
+        //console.log(msg);
+        //var stream = fs.createWriteStream(kafkaDataPath);
+        //stream.write(JSON.stringify(msg));
+        //stream.end();
+
+        getRunPyPromise('./sample_code.py', JSON.stringify(msg)).then(function (fromPy) {
+            console.log(fromPy.toString());
+        }, function (err) {
+            console.log(err);
+        });
+
+    } else {
+        console.error("Received data from unknown node (" + msg.device.deviceID + ").");
+        console.error(msg);
+    }
 
 }
 
 function onError(error) {
-    console.log(error);
+    console.error(error);
 }
 
 var consumer = Kafka().Consumer('dredd', onReceive, onError);
