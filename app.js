@@ -63,16 +63,23 @@ let measurements = [];
 function onReceive(message) {
     const msg = JSON.parse(message.value);
     if (msg.device.deviceID === balluffMaster) {
+        // data["measurements"][0]["series"]["Balluff Master: Distance on Port 0"]
+        const ts = msg.measurements[0].ts;
+        const measurement = msg.measurements[0].series["Balluff Master: Distance on Port 0"][0];
         getRunPyPromise('./sample_code.py', JSON.stringify(msg)).then(function (fromPy) {
-            console.log(fromPy.toString());
-            const n = fromPy.toString().trim();
-            let measurement = parseFloat(n);
-            measurements.push(measurement);
+            //getRunPyPromise('./DecisionTree.py', measurement).then(function (fromPy) {
+            //  console.log(fromPy.toString());
+            //console.log(fromPy.toString());
+            const decision = fromPy.toString().trim();
+            //let measurement = parseFloat(n);
+            //console.log(decision);
+            const result = {'ts': ts, 'measurement': measurement, 'decision': decision};
+            measurements.push(result);
             // Turn on camera - stay 10 sec. --> turn it off
             // Broadcast measurement to all nodes
             wss.clients.forEach(function each(client) {
                 // Send measurement if client is ready
-                if (client.readyState === WebSocket.OPEN) client.send(measurement);
+                if (client.readyState === WebSocket.OPEN) client.send(JSON.stringify(result));
                 else console.error("Client not ready to receive data.");
             });
         }, function (err) {
