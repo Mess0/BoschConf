@@ -59,6 +59,7 @@ const Kafka = function () {
 const balluffMaster = "dredd_balluff_master";
 
 let measurements = [];
+const measurementsLimit = 2000;
 
 function onReceive(message) {
     const msg = JSON.parse(message.value);
@@ -74,6 +75,9 @@ function onReceive(message) {
             //let measurement = parseFloat(n);
             //console.log(decision);
             const result = {'ts': ts, 'measurement': measurement, 'decision': decision};
+            // If limit reached, remove first item of array
+            if (measurements.length > measurementsLimit)
+                measurements.shift();
             measurements.push(result);
             // Turn on camera - stay 10 sec. --> turn it off
             // Broadcast measurement to all nodes
