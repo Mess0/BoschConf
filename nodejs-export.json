@@ -1,0 +1,314 @@
+[
+    {
+        "id": "3db7986e.b109b8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "c187709e.8eae1",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Home",
+        "icon": "dashboard"
+    },
+    {
+        "id": "845665ff.1aa368",
+        "type": "ui_group",
+        "z": "",
+        "name": "Live Chart",
+        "tab": "c187709e.8eae1",
+        "disp": true,
+        "width": "16",
+        "collapse": false
+    },
+    {
+        "id": "6837b405.413bec",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-dark",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#097479",
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#000000",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#0eb8c0",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#555555",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#eeeeee",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#097479",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#333333",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "7c1087f2.e2d98",
+        "type": "websocket-listener",
+        "z": "",
+        "path": "ws://100.102.1.66:8888",
+        "wholemsg": "false"
+    },
+    {
+        "id": "dace234b.81f9c8",
+        "type": "inject",
+        "z": "3db7986e.b109b8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 160,
+        "y": 40,
+        "wires": [
+            [
+                "c37d7d90.2c3a98"
+            ]
+        ]
+    },
+    {
+        "id": "c37d7d90.2c3a98",
+        "type": "http request",
+        "z": "3db7986e.b109b8",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://100.102.1.66:8080/api",
+        "tls": "",
+        "x": 170,
+        "y": 180,
+        "wires": [
+            [
+                "a8dc8933.2a74f8"
+            ]
+        ]
+    },
+    {
+        "id": "bc89c18f.bfb1f",
+        "type": "ui_chart",
+        "z": "3db7986e.b109b8",
+        "name": "",
+        "group": "845665ff.1aa368",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "useOldStyle": false,
+        "x": 570,
+        "y": 180,
+        "wires": [
+            [],
+            []
+        ]
+    },
+    {
+        "id": "8f387371.fbce68",
+        "type": "debug",
+        "z": "3db7986e.b109b8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 510,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a8dc8933.2a74f8",
+        "type": "function",
+        "z": "3db7986e.b109b8",
+        "name": "",
+        "func": "\nvar data = JSON.parse(msg.payload)\n           .measurements.map(function(el){\n                return {'x': new Date(el.ts).getTime(), 'y': el.measurement};   \n           });\nmsg.payload = [{\n\"series\": [\"A\"],\n\"data\": [data],\n\"labels\": [\"\"]\n}];\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 200,
+        "wires": [
+            [
+                "8f387371.fbce68",
+                "bc89c18f.bfb1f"
+            ]
+        ]
+    },
+    {
+        "id": "f0b2e380.4b9d9",
+        "type": "websocket in",
+        "z": "3db7986e.b109b8",
+        "name": "",
+        "server": "7c1087f2.e2d98",
+        "client": "",
+        "x": 180,
+        "y": 300,
+        "wires": [
+            [
+                "e72d6ab9.662818",
+                "6a4daa91.5e0f94"
+            ]
+        ]
+    },
+    {
+        "id": "e72d6ab9.662818",
+        "type": "function",
+        "z": "3db7986e.b109b8",
+        "name": "",
+        "func": "var el = JSON.parse(msg.payload);\nmsg = {'topic': 'A', 'payload': el.measurement};\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 460,
+        "y": 280,
+        "wires": [
+            [
+                "bc89c18f.bfb1f",
+                "36ef6909.f4028e"
+            ]
+        ]
+    },
+    {
+        "id": "36ef6909.f4028e",
+        "type": "debug",
+        "z": "3db7986e.b109b8",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 670,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "8d708204.35829",
+        "type": "ui_template",
+        "z": "3db7986e.b109b8",
+        "group": "845665ff.1aa368",
+        "name": "",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "format": "<div style=\"width: 640px;height: 480px;\">\nCurrent value: {{msg.payload}}\n<video id=\"video\" autoplay>\n    \n</video>\n</div>\n\n<script>\n\n(function(scope) {\n\n\tvar video = document.getElementById('video');\t\n\tvar started = false;\n\t\n\t\n\tfunction videoStart(){\n\t\tif (started) return;\n\t\tif(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {\n\t\t\t\tnavigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {\n\t\t\t\t\t\tvideo.src = window.URL.createObjectURL(stream);\n\t\t\t\t\t\tvideo.play();\n\t\t\t\t\t\tconsole.log(\"Video Start\");\n\t\t\t\t\t\tstarted = true;\n\t\t\t\t});\n\t\t}\n\t}\n\n\tfunction videoStop() {\n\t\tconsole.log(\"Video Stop\");\n\t\tvideo.pause();\n\t\tstarted = false;\n\t}\n\n\n\tscope.$watch('msg.payload', function(data) {\n\t\tconsole.log(data);\n\t\tconsole.log(video.src);\n\t\tif (data < 100 || data > 200)\n\t\t\tvideoStart();\n\t\telse\n\t\t\tvideoStop();\n\t});\n})(scope);\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 580,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6a4daa91.5e0f94",
+        "type": "function",
+        "z": "3db7986e.b109b8",
+        "name": "",
+        "func": "var el = JSON.parse(msg.payload);\nmsg.payload = el.measurement;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 420,
+        "y": 380,
+        "wires": [
+            [
+                "8d708204.35829"
+            ]
+        ]
+    }
+]
